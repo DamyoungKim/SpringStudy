@@ -2,6 +2,7 @@ package hello.core;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
@@ -15,6 +16,9 @@ import hello.core.order.OrderServiceImpl;
  * 
  * 리펙토링
  * 역할에 따른 구현에 따라 애플리케이션 전체 구성이 어떻게 되어있는지 빠르게 파악할 수 있다.
+ * 
+ * AppConfig 로 구성 영역과 사용 영역으로 나눔.
+ * 할인 정책을 바꿀 때 구성 영역 코드만 바꾸면 된다.
  */
 
 public class AppConfig {
@@ -32,6 +36,7 @@ public class AppConfig {
 	}
 	
 	public DiscountPolicy discountPloicy() {
-		return new FixDiscountPolicy();
+//		return new FixDiscountPolicy();
+		return new RateDiscountPolicy();
 	}
 }
