@@ -1,5 +1,8 @@
 package hello.core.order;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
@@ -7,6 +10,7 @@ import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
 //	private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -48,6 +52,7 @@ public class OrderServiceImpl implements OrderService {
 		int discountPrice = discountPolicy.discount(member, itemPrice); //OCP 잘 지킨거. 할인 정책 바뀌면 discountPolicy만 바꾸면된다.
 		return new Order(memberId, itemName, itemPrice, discountPrice);
 	}
+	@Autowired
 	public OrderServiceImpl(MemberRepository memberRepository,  DiscountPolicy discountPolicy) { // 뭐가 들어올지 모른다. 그냥 대본만 보고 공연 준비하는거야.
 		// TODO Auto-generated constructor stub
 		this.memberRepository = memberRepository;
