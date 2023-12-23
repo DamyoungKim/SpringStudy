@@ -39,12 +39,24 @@ public class OrderServiceImpl implements OrderService {
 	 * 
 	 */
 	
-	private DiscountPolicy discountPolicy; // 이렇게 사중하게 만들면 된다. 추상에만 의존하므로 DIP 해결 가능.
+	private final DiscountPolicy discountPolicy; // 이렇게 사중하게 만들면 된다. 추상에만 의존하므로 DIP 해결 가능.
 	// 근데 이거 null point 뜬다.. 인터페이스만 가지고 뭐 어케해.. 구체적인게 있어야지
 	//이걸 해결하려면? 클라이언트인 OrderServiceImpld에 DiscountPolicy의 구현 객체를 누군가 대신 생성해줘서 대신 주입해주어야한다. 파라미터 전달??
 	// 그걸 어떻게 할란가~~
 	// 관심사의 분리.
-	private MemberRepository memberRepository;
+	private final MemberRepository memberRepository;
+	/*
+	 @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+	 
+    @Autowired
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+    }
+    */
+    
 	@Override
 	public Order createOrder(Long memberId, String itemName, int itemPrice) {
 		// TODO Auto-generated method stub
@@ -52,12 +64,14 @@ public class OrderServiceImpl implements OrderService {
 		int discountPrice = discountPolicy.discount(member, itemPrice); //OCP 잘 지킨거. 할인 정책 바뀌면 discountPolicy만 바꾸면된다.
 		return new Order(memberId, itemName, itemPrice, discountPrice);
 	}
+	
 	@Autowired
 	public OrderServiceImpl(MemberRepository memberRepository,  DiscountPolicy discountPolicy) { // 뭐가 들어올지 모른다. 그냥 대본만 보고 공연 준비하는거야.
 		// TODO Auto-generated constructor stub
 		this.memberRepository = memberRepository;
 		this.discountPolicy = discountPolicy;
 	}
+	
 	// 테스트 용도.
 	public MemberRepository getMemberRepository() {
 		return memberRepository;
