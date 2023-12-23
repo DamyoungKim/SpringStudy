@@ -1,4 +1,4 @@
-wpackage hello.core.autowired;
+package hello.core.autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
