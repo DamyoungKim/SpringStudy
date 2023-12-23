@@ -15,7 +15,7 @@ import hello.core.member.MemoryMemberRepository;
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
 )
 public class AutoAppConfig {
-	@Bean(name = "memoryMemberRepository")
+	//@Bean(name = "memoryMemberRepository")
 	public MemberRepository memberRepository() {
 		return new MemoryMemberRepository();
 	}
